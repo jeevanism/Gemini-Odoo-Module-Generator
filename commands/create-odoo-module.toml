@@ -1,0 +1,98 @@
+# Gemini Odoo Module Generator - A simple Odoo custom module generator for Google Gemini CLI.
+#
+# 2026  jeevanism  - https://jeevanism.com - https://github.com/jeevanism
+#
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+description = "Create a new Odoo custom module with standard directory structure and boilerplate."
+
+prompt = """
+We're going to build a new Odoo custom module.
+
+## Problem specification
+
+First, prompt the user for a description of what the purpose and features of the Odoo custom module will be.
+
+Once the user has specified the description and purpose of the module, outline the information that you will be collecting before creating the design and implementation plan, and present the list to the user, along with your first question.
+
+## Collecting Information
+
+Next, collect remaining information from the user, one question at a time.
+
+The information you need to collect includes, but might not be limited to:
+
+- What should be the technical name of the module? (Ensure it is a valid Odoo module name: lowercase, underscores, e.g., `custom_sales_report`).
+- What should be the human-readable Title of the module?
+- Which Odoo version is this module targeting? (e.g., 16.0, 17.0, 18.0).
+- Does this module depend on any existing Odoo base or third-party modules? (e.g., `base`, `sale_management`, `account`).
+- Which directory to use as the addons path (parent directory for the module). Suggest a location if possible.
+- If there are ambiguous elements to the design (like which models to inherit vs. create), ask the user questions to clarify. When the goal is clear, or the user says to, then move on.
+
+**VERY IMPORTANT**: Once the directory location is determined, change directories to the module directory now so that future operations are relative to that directory.
+
+## Design document
+
+Develop a **DETAILED** Markdown-formatted design document that follows Odoo development guidelines, best practices, and core principles. Save the design document in `specs/DESIGN.md` in the module directory. Feel free to use your available tools to research any aspects of the design that need clarification.
+
+The design doc should (at least) include sections for:
+
+- An overview of the module
+- A detailed analysis of the business requirements
+- Data Model Design (Which models will be `_inherit` vs `_name`). Ensure a strict "One File = One Model" architecture.
+- UI/UX Architecture (Views, Menus, Actions, and Wizards)
+- Security Strategy (Access Rights `ir.model.access.csv` and Record Rules)
+- A summary of the design
+
+You must ask the user to review this design document and they must approve it before you continue on to create the implementation plan. They must review and approve it first because if they ask for any changes, it may affect the implementation plan.
+
+## Implementation plan
+
+After getting explicit approval from the user for the DESIGN.md document, Develop a **DETAILED** Markdown-formatted phased implementation plan of checkboxed tasks that need to be performed in order to finish scaffolding the module. Save the implementation plan in `specs/IMPLEMENTATION.md` in the module directory.
+
+The implementation plan should include a section for a "Journal" which will be updated after each phase and contain a log of the actions taken, things learned, surprises, and deviations from the plan. It should be in chronological order.
+
+In the first phase of the implementation plan, include:
+
+- [ ] Create the module root directory.
+- [ ] Create the standard Odoo directory structure: `models/`, `views/`, `security/`, `data/`, `wizards/`, `controllers/`, `static/src/` (with `js/`, `css/`, `xml/` if needed), `static/description/`, `reports/`, and `tests/`.
+- [ ] Generate the empty `__init__.py` files in the root and in any directories containing Python files.
+- [ ] Generate the `__manifest__.py` file populated with the collected metadata.
+  - **CRITICAL - VERSION**: The `version` in the manifest MUST carry the Odoo version prefix followed by `.1.0.0` (for example, if targeting Odoo 18.0, the version string must be `"18.0.1.0.0"`. If 17.0, it must be `"17.0.1.0.0"`).
+  - **CRITICAL - DATA ORDER**: When populating the `data` list in `__manifest__.py`, the exact order is vital. `security/ir.model.access.csv` and `security/security_rules.xml` MUST be the very first items. Views should be loaded after data and sequences, and menu items should be loaded last.
+- [ ] Generate a standard `pyproject.toml` in the root directory configured for `whool` if acting as an OCA module.
+- [ ] Commit this empty skeleton version of the module to either a new branch or the current branch based on the user's preference.
+
+The implementation plan should specify after each phase that you should:
+
+- [ ] Check for proper Python formatting (e.g., using `flake8` or `black` if requested).
+  - Ensure every Python method that expects a single record uses `self.ensure_one()` to prevent batch processing bugs.
+  - Enforce the "One File = One Model" golden rule. Do not cram multiple models into one `models.py`.
+- [ ] Ensure XML view structures are valid. Do NOT prefix XML record IDs with the module name unless referring to an external module.
+- [ ] Re-read the IMPLEMENTATION.md file to see what, if anything, has changed in the implementation plan.
+- [ ] Update the IMPLEMENTATION.md file with the current state, including any learnings, surprises, or deviations in the Journal section. Check off any checkboxes of items that have been completed.
+- [ ] Use `git diff` to verify the changes that have been made, and create a suitable commit message. Present the change message to the user for approval.
+- [ ] Wait for approval. Don't commit the changes or move on to the next phase of implementation until the user approves the commit.
+
+In the last phase of the plan, include steps to:
+
+- [ ] Create a comprehensive `README.rst` (Odoo standard) or `README.md` file for the module using standard Odoo Community Association (OCA) structure if applicable.
+- [ ] Ask the user to inspect the scaffolded module and say if they are satisfied with it, or if any modifications are needed.
+
+You must ask the user to review this implementation plan and they must approve it before starting implementation.
+
+## Implementation
+
+After getting explicit approval from the user for the IMPLEMENTATION.md document, begin implementing the plan.
+"""

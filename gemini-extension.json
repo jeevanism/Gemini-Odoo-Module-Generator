@@ -1,0 +1,9 @@
+{
+  "name": "odoo-module-generator",
+  "version": "1.0.0",
+  "description": "An autonomous agentic scaffold tool for Odoo development that interviews the user, writes design docs, and scaffolds directories.",
+  "author": "jeevanism",
+  "engines": {
+    "gemini": ">=0.29.0"
+  }
+}
