@@ -71,6 +71,7 @@ In the first phase of the implementation plan, include:
 - [ ] Generate the `__manifest__.py` file populated with the collected metadata.
   - **CRITICAL - VERSION**: The `version` in the manifest MUST carry the Odoo version prefix followed by `.1.0.0` (for example, if targeting Odoo 18.0, the version string must be `"18.0.1.0.0"`. If 17.0, it must be `"17.0.1.0.0"`).
   - **CRITICAL - DATA ORDER**: When populating the `data` list in `__manifest__.py`, the exact order is vital. `security/ir.model.access.csv` and `security/security_rules.xml` MUST be the very first items. Views should be loaded after data and sequences, and menu items should be loaded last.
+  - **CRITICAL - ASSETS & DEMO**: Include empty or populated `assets` (e.g., `web.assets_backend`, `web.assets_frontend`) and `demo` keys in the manifest to standardize the structure if the module includes static files or demonstration data.
 - [ ] Generate a standard `pyproject.toml` in the root directory configured for `whool` if acting as an OCA module.
 - [ ] Commit this empty skeleton version of the module to either a new branch or the current branch based on the user's preference.
 
