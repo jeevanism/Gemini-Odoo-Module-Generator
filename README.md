@@ -1,4 +1,4 @@
-# Gemini Odoo Module Generator Extension
+# Google Gemini CLI Odoo Module Generator Extension
 
 This repository provides a custom command extension for the [Gemini CLI](https://geminicli.com) (or compatible Gemini terminal clients) that behaves as an autonomous agentic scaffold tool for Odoo development.
 
