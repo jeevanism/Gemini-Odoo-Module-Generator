@@ -4,6 +4,9 @@ This repository provides a custom command extension for the [Gemini CLI](https:/
 
 Instead of writing `__manifest__.py` and folders by hand, you can invoke this command and have Gemini automatically reason about your requirements, write a detailed Markdown design document, scaffold the entire directory structure, and scaffold out the model, view, security, and wizard directories.
 
+![Invoking the command](assets/command.png)
+![The agent in action](assets/command2.png)
+
 ## Features
 
 - **Interactive Requirements Gathering**: The agent asks you clarifying questions about the technical name, title, version, and dependencies of the new module.
